@@ -73,6 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Dev\Projects\citrus-engine\citrus-engine\engine\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\glm\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLFW\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLAD\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\spdlog\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLFW\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>C:\Dev\Projects\citrus-engine\citrus-engine\engine\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,7 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\main.cpp" />
-    <ClCompile Include="engine\include\gfx\Shader.h" />
+    <ClInclude Include="engine\include\gfx\Shader.h" />
     <ClCompile Include="engine\src\core\Application.cpp" />
     <ClCompile Include="engine\src\gfx\Shader.cpp" />
     <ClCompile Include="vendor\GLAD\src\glad.c" />
@@ -138,7 +139,7 @@
   <ItemGroup>
     <None Include="assets\shaders\shader.frag" />
     <None Include="assets\shaders\shader.vert" />
-    <None Include="engine\include\core\Application.h" />
+    <ClInclude Include="engine\include\core\Application.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

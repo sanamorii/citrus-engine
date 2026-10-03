@@ -1,3 +1,4 @@
+#pragma message("========== COMPILING SHADER.CPP ==========")
 #include "gfx/Shader.h"
 
 #include <glm/gtc/type_ptr.hpp>
@@ -34,8 +35,8 @@ std::string Shader::ReadFile(const std::string& path, bool& ok) {
 }
 // --- 
 
-Shader::Shader(const std::string name) : m_name(name) {
-}
+//Shader::Shader(const std::string& name) : m_name(name) {
+//}
 
 Shader::~Shader() {
 	// Clean up any pending shader stages + compiled program
@@ -46,7 +47,12 @@ Shader::~Shader() {
 Shader* Shader::Attach(const std::string& path) {
 	bool ok = false;
 	const std::string shader_source = ReadFile(path, ok);
-	const char* src = shader_source.c_str();
+	if (!ok) {
+		std::cerr << "[Shader] Could not open file: " << path << "\n";
+		m_failed = true;
+		return this;
+	}
+
 	GLenum stage = Shader::StageFromPath(path);
 
 	if (stage == 0) {
@@ -56,6 +62,7 @@ Shader* Shader::Attach(const std::string& path) {
 	}
 
 	unsigned int shader = glCreateShader(stage);
+	const char* src = shader_source.c_str();
 	glShaderSource(shader, 1, &src, nullptr);
 	glCompileShader(shader);	
 

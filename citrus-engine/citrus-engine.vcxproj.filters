@@ -21,9 +21,6 @@
     <ClCompile Include="engine\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\include\gfx\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="engine\src\core\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,9 +30,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\shader.vert" />
-    <None Include="engine\include\core\Application.h">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="assets\shaders\shader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="engine\include\gfx\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\include\core\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

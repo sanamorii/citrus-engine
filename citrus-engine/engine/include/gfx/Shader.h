@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include <glm/glm.hpp>
 #include <glad/glad.h>
@@ -9,7 +10,7 @@ namespace citrus::gfx {
 
 class Shader {
 public:
-	Shader(const std::string name);
+	Shader(const std::string& name) : m_name(name) {}
 	~Shader();
 
 	Shader* Link();
