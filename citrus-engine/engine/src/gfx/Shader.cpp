@@ -30,6 +30,7 @@ std::string Shader::ReadFile(const std::string& path, bool& ok) {
 	}
 	std::stringstream ss;
 	ss << file.rdbuf();
+	file.close();
 	ok = true;
 	return ss.str();
 }
