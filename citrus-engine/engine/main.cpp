@@ -1,8 +1,10 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include "gfx/Shader.h"
+
 
 float vertices[] = {
 	//-.5f, -.5f, .0f,
@@ -109,8 +111,6 @@ int main() {
 		->Attach("assets/shaders/shader.frag")
 		->Link();
 
-	
-
 	// linking vertex attributes
 	
 	// ogl object buffers.
@@ -153,6 +153,11 @@ int main() {
 		// draw
 		//glUseProgram(shaderProgram);
 		shad->Bind();
+		float timeValue = glfwGetTime();
+		float greenValue = sin(timeValue) / 2.0f + 0.5f;
+		glm::vec4 c = { .0f, greenValue, .0f, 1.f, };
+		shad->Set("colour", c);
+
 		glBindVertexArray(VAO);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
