@@ -34,7 +34,7 @@ std::string Shader::ReadFile(const std::string& path, bool& ok) {
 }
 // --- 
 
-Shader::Shader(const std::string name) : name(name) {
+Shader::Shader(const std::string name) : m_name(name) {
 }
 
 Shader::~Shader() {
@@ -94,13 +94,13 @@ Shader* Shader::Link() {
 	for (GLuint s : m_stages) glAttachShader(m_id, s);
 	glLinkProgram(m_id);
 
-	GLuint success = 0;
+	GLint success = 0;
 	glGetProgramiv(m_id, GL_LINK_STATUS, &success);
 	if (!success) {
 		char log[1024];
 		glGetProgramInfoLog(m_id, sizeof(log), nullptr, log);
 		std::cerr << "[Shader] Link error:\n" << log << "\n";
-		m_failed;
+		m_failed = true;
 	}
 	else {
 		m_linked = true;
@@ -108,7 +108,7 @@ Shader* Shader::Link() {
 
 	for (GLuint s : m_stages) {
 		glDetachShader(m_id, s);
-		glDeleteShader(s)
+		glDeleteShader(s);
 	}
 
 	m_stages.clear();

@@ -39,7 +39,7 @@ public:
 	void Set(const char* name, const glm::mat4& v) const;
 private:
 	GLuint		m_id = 0;
-	std::string name;
+	std::string m_name;
 	bool		m_linked = false;
 	bool		m_isCompute = false;
 	bool		m_failed = false;
