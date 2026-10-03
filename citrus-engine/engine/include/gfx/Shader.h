@@ -24,12 +24,12 @@ public:
 	bool IsValid() const { return m_linked && !m_failed; }
 
 	bool IsCompute() const { return m_isCompute; }
-	void Dispatch(GLuint x, GLuint y = 1, GLuint z = 1, 
-		GLbitfield barriers = GL_SHADER_STORAGE_BARRIER_BIT) const;
+	//void Dispatch(GLuint x, GLuint y = 1, GLuint z = 1, 
+	//	GLbitfield barriers = GL_SHADER_STORAGE_BARRIER_BIT) const;
 
 	void Set(const char* name, bool value) const;
 	void Set(const char* name, int value) const;
-	void Set(const char* name, unsigned value) const;
+	void Set(const char* name, unsigned int value) const;
 	void Set(const char* name, float value) const;
 	void Set(const char* name, const glm::vec2& v) const;
 	void Set(const char* name, const glm::vec3& v) const;

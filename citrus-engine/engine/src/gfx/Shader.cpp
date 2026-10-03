@@ -9,6 +9,7 @@
 
 namespace citrus::gfx {
 
+// --- Helper functions
 GLenum Shader::StageFromPath(const std::string& path) {
 	const std::string ext = std::filesystem::path(path).extension().string();
 	if (ext == ".vert") return GL_VERTEX_SHADER;
@@ -31,7 +32,16 @@ std::string Shader::ReadFile(const std::string& path, bool& ok) {
 	ok = true;
 	return ss.str();
 }
+// --- 
 
+Shader::Shader(const std::string name) : name(name) {
+}
+
+Shader::~Shader() {
+	// Clean up any pending shader stages + compiled program
+	for (GLuint s : m_stages) glDeleteShader(s);
+	if (m_id) glDeleteProgram(m_id);
+}
 
 Shader* Shader::Attach(const std::string& path) {
 	bool ok = false;
