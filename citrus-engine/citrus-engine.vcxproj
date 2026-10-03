@@ -129,13 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="editor\main.cpp" />
+    <ClCompile Include="engine\main.cpp" />
     <ClCompile Include="engine\include\gfx\Shader.h" />
     <ClCompile Include="engine\src\core\Application.cpp" />
     <ClCompile Include="engine\src\gfx\Shader.cpp" />
     <ClCompile Include="vendor\GLAD\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\shaders\shader.frag" />
     <None Include="assets\shaders\shader.vert" />
     <None Include="engine\include\core\Application.h" />
   </ItemGroup>
