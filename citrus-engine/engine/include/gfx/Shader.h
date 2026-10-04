@@ -10,7 +10,7 @@ namespace citrus::gfx {
 
 class Shader {
 public:
-	Shader(const std::string& name) : m_name(name) {}
+	Shader(const std::string& name);
 	~Shader();
 
 	Shader* Link();

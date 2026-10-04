@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Dev\Projects\citrus-engine\citrus-engine\engine\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\glm\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLFW\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLAD\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\spdlog\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Dev\Projects\citrus-engine\citrus-engine\vendor\stb;C:\Dev\Projects\citrus-engine\citrus-engine\engine\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\glm\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLFW\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLAD\include;C:\Dev\Projects\citrus-engine\citrus-engine\vendor\spdlog\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Dev\Projects\citrus-engine\citrus-engine\vendor\GLFW\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>C:\Dev\Projects\citrus-engine\citrus-engine\engine\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -134,12 +134,15 @@
     <ClInclude Include="engine\include\gfx\Shader.h" />
     <ClCompile Include="engine\src\core\Application.cpp" />
     <ClCompile Include="engine\src\gfx\Shader.cpp" />
+    <ClCompile Include="engine\src\gfx\Texture.cpp" />
     <ClCompile Include="vendor\GLAD\src\glad.c" />
+    <ClInclude Include="vendor\stb\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\shader.frag" />
     <None Include="assets\shaders\shader.vert" />
     <ClInclude Include="engine\include\core\Application.h" />
+    <None Include="engine\include\gfx\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

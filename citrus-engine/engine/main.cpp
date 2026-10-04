@@ -4,20 +4,35 @@
 #include <glm/glm.hpp>
 
 #include "gfx/Shader.h"
+#include "gfx/Texture.h"
 
+
+//float vertices[] = {
+//	//-.5f, -.5f, .0f,
+//	// .5f, -.5f, .0f,
+//	// .0f,  .5f, .0f
+//	 0.5f,  0.5f, 0.0f,  // top right
+//	 0.5f, -0.5f, 0.0f,  // bottom right
+//	-0.5f, -0.5f, 0.0f,  // bottom left
+//	//-0.5f,  0.5f, 0.0f   // top left 
+//};
 
 float vertices[] = {
-	//-.5f, -.5f, .0f,
-	// .5f, -.5f, .0f,
-	// .0f,  .5f, .0f
-	 0.5f,  0.5f, 0.0f,  // top right
-	 0.5f, -0.5f, 0.0f,  // bottom right
-	-0.5f, -0.5f, 0.0f,  // bottom left
-	-0.5f,  0.5f, 0.0f   // top left 
+	// positions			// colours			// texture coordinates
+	 0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
+	-0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, 0.0f,
+	 0.0f,  0.5f, 0.0f,		0.0f, 0.0f, 1.0f,	0.5f, 1.0f,
 };
+
 unsigned int indices[] = {  // note that we start from 0!
 	0, 1, 3,   // first triangle
-	1, 2, 3    // second triangle
+	//1, 2, 3    // second triangle
+};
+
+float texCoord[] = {
+	0.0f, 0.0f,
+	1.0f, 0.0f,
+	0.5f, 1.0f
 };
 
 const char* vertexShaderSource = "#version 330 core\n"
@@ -66,78 +81,50 @@ int main() {
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	//// vertex shader
-	//unsigned int vertexShader;
-	//vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	//glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	//glCompileShader(vertexShader);
-
-	//int success;
-	//char infoLog[512];
-	//glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-
-	//if (!success) {
-	//	glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-	//	std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	//}
-
-	//// fragment shader
-	//unsigned int fragmentShader;
-	//fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	//glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	//glCompileShader(fragmentShader);
-
-	//// shader program
-	//unsigned int shaderProgram;
-	//shaderProgram = glCreateProgram();
-
-	//glAttachShader(shaderProgram, vertexShader);
-	//glAttachShader(shaderProgram, fragmentShader);
-	//glLinkProgram(shaderProgram);
-
-	//glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	//if (!success) {
-	//	glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-	//	std::cout << "ERROR::SHADER::PROGRAM::LINK_ERROR\n" << infoLog << std::endl;
-	//}
-
-	//glUseProgram(shaderProgram);
-	//glDeleteShader(vertexShader);
-	//glDeleteShader(fragmentShader);
-
 	citrus::gfx::Shader* shad = new citrus::gfx::Shader("test shader");
 	shad
 		->Attach("assets/shaders/shader.vert")
 		->Attach("assets/shaders/shader.frag")
 		->Link();
 
+	
+
 	// linking vertex attributes
 	
 	// ogl object buffers.
 	unsigned int VAO;
 	unsigned int VBO;
-	unsigned int EBO;
+	//unsigned int EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
+	//glGenBuffers(1, &EBO);
 	glBindVertexArray(VAO);
 
 	// 0. copy our vertices array in a buffer for OpenGL to use
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// 1. then set the vertex attribute points
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	//	position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	//	colour attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	// texture attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
 
-
+	citrus::gfx::Texture* tex = new citrus::gfx::Texture("assets/textures/container.jpg");
+	tex->ApplyParameters();
+	tex->LoadTexture();
 
 
 	// run loop
@@ -152,15 +139,18 @@ int main() {
 
 		// draw
 		//glUseProgram(shaderProgram);
+
+		glBindTexture(GL_TEXTURE_2D, tex->ID());
+
 		shad->Bind();
-		float timeValue = glfwGetTime();
-		float greenValue = sin(timeValue) / 2.0f + 0.5f;
-		glm::vec4 c = { .0f, greenValue, .0f, 1.f, };
-		shad->Set("colour", c);
+		//float timeValue = glfwGetTime();
+		//float greenValue = sin(timeValue) / 2.0f + 0.5f;
+		//glm::vec4 c = { .0f, greenValue, .0f, 1.f, };
+		//shad->Set("colour", c);
 
 		glBindVertexArray(VAO);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);

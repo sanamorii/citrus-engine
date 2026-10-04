@@ -36,8 +36,9 @@ std::string Shader::ReadFile(const std::string& path, bool& ok) {
 }
 // --- 
 
-//Shader::Shader(const std::string& name) : m_name(name) {
-//}
+Shader::Shader(const std::string& name) : m_name(name) {
+	m_id = glCreateProgram();
+}
 
 Shader::~Shader() {
 	// Clean up any pending shader stages + compiled program
@@ -98,7 +99,6 @@ Shader* Shader::Link() {
 		return this;
 	}
 
-	m_id = glCreateProgram();
 	for (GLuint s : m_stages) glAttachShader(m_id, s);
 	glLinkProgram(m_id);
 

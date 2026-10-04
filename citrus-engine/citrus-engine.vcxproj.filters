@@ -27,16 +27,23 @@
     <ClCompile Include="engine\src\gfx\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="engine\src\gfx\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\shader.vert" />
     <None Include="assets\shaders\shader.frag" />
+    <None Include="engine\include\gfx\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\include\gfx\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="engine\include\core\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\stb\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
