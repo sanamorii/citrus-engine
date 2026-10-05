@@ -6,10 +6,10 @@
 #include <iostream>
 
 namespace citrus::gfx {
-	Texture::Texture(const std::string& path) {
+	Texture::Texture(const std::string& path) :
+		m_texturePath(path) {
 		glGenTextures(1, &m_texture);
 		glBindTexture(GL_TEXTURE_2D, m_texture);
-		m_texturePath = path.c_str();
 	}
 
 	void Texture::ApplyParameters() {
@@ -20,7 +20,7 @@ namespace citrus::gfx {
 	}
 
 	bool Texture::LoadTexture() {
-		unsigned char* data = stbi_load(m_texturePath, &m_width, &m_height, &m_nrChannels, 0);
+		unsigned char* data = stbi_load(m_texturePath.c_str(), &m_width, &m_height, &m_nrChannels, 0);
 		if (data) {
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);

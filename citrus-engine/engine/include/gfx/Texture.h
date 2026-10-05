@@ -19,7 +19,7 @@ public:
 	unsigned int ID() const { return m_texture; }
 private:
 	GLuint m_texture;
-	const char* m_texturePath;
+	std::string m_texturePath;
 	int m_width;
 	int m_height;
 	int m_nrChannels;
