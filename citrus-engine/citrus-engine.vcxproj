@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\main.cpp" />
+    <ClInclude Include="engine\include\core\Transform.h" />
     <ClInclude Include="engine\include\gfx\Shader.h" />
     <ClCompile Include="engine\src\core\Application.cpp" />
     <ClCompile Include="engine\src\gfx\Shader.cpp" />
