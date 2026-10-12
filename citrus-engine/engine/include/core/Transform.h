@@ -19,7 +19,7 @@ namespace citrus::core {
 		const glm::vec3& Position() const { return m_position; }
 		const glm::vec3& Scale() const { return m_scale; }
 		const glm::quat& Rotation() const { return m_rotation; }
-		glm::vec3 EulerDegree() const { return glm::degrees(glm::eulerAngles(m_rotation); }
+		glm::vec3 EulerDegree() const { return glm::degrees(glm::eulerAngles(m_rotation)); }
 
 		// local axes in world space for cameras, movement, lights, etc.
 		glm::vec3 Forward() const { return m_rotation * glm::vec3(0.0f, 0.0f, -1.0f); }
