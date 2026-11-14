@@ -7,6 +7,8 @@
 
 #include "gfx/Shader.h"
 #include "gfx/Texture.h"
+#include "gfx/TESTING.h"
+#include "gfx/Camera.h"
 
 
 //float vertices[] = {
@@ -60,6 +62,9 @@ void processInput(GLFWwindow* window) {
 	}
 }
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
 int main() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -67,7 +72,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// setup window
-	GLFWwindow* window = glfwCreateWindow(800, 600, "citrus", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "citrus", NULL, NULL);
 	if (window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
@@ -83,13 +88,19 @@ int main() {
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	// z-depth
+
+	glEnable(GL_DEPTH_TEST);
+
 	citrus::gfx::Shader* shad = new citrus::gfx::Shader("test shader");
 	shad
 		->Attach("assets/shaders/shader.vert")
 		->Attach("assets/shaders/shader.frag")
 		->Link();
 
-	
+	// cameras
+	citrus::gfx::Camera* camera = new citrus::gfx::Camera(60.0f, WINDOW_WIDTH / WINDOW_HEIGHT);
+	camera->Translate({ 0.f,0.f,3.0f });
 
 	// linking vertex attributes
 	
@@ -104,7 +115,7 @@ int main() {
 
 	// 0. copy our vertices array in a buffer for OpenGL to use
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(citrus::gfx::test_vertices), citrus::gfx::test_vertices, GL_STATIC_DRAW);
 
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -136,7 +147,8 @@ int main() {
 	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	glm::mat4 view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
 
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
@@ -148,12 +160,13 @@ int main() {
 		// update
 		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(1.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
+
 		// input handling
 		processInput(window);
 
 		// rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// draw
 		//glUseProgram(shaderProgram);
@@ -163,7 +176,8 @@ int main() {
 		shad->Bind();
 		//shad->Set("transform", trans);
 		shad->Set("model", model);
-		shad->Set("view", view);
+		//shad->Set("view", view);
+		camera->Apply(*shad);
 		shad->Set("projection", projection);
 		//float timeValue = glfwGetTime();
 		//float greenValue = sin(timeValue) / 2.0f + 0.5f;
@@ -171,7 +185,7 @@ int main() {
 		//shad->Set("colour", c);
 
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, sizeof(citrus::gfx::test_vertices) / sizeof(float) / 8);
 		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
