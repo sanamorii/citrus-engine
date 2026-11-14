@@ -3,8 +3,6 @@
 #include "gfx/Shader.h"
 #include "core/Transform.h"
 
-using namespace citrus::core;
-
 namespace citrus::gfx {
 	class Model {
 	public:
