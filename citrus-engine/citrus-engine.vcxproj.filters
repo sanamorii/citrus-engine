@@ -39,6 +39,9 @@
     <ClCompile Include="engine\src\gfx\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="engine\src\app\CameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\shader.vert" />
@@ -70,7 +73,10 @@
     <ClInclude Include="engine\include\app\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\include\app\Input.h">
+    <ClInclude Include="engine\include\platform\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\include\platform\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
