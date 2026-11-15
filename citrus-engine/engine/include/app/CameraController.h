@@ -2,14 +2,14 @@
 
 #include "gfx/Camera.h"
 
-struct GLFWindow;
+struct GLFWwindow;
 
 namespace citrus::app {
 	class CameraController {
 	public:
 		explicit CameraController(gfx::Camera& camera) : m_camera(camera) {}
 
-		void Update(GLFWindow* window, float dt);
+		void Update(GLFWwindow* window, float dt);
 		float moveSpeed = 5.0f;
 		float sensitivity = 0.1f; // deg per px
 

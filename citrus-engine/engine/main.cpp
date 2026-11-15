@@ -9,7 +9,9 @@
 #include "gfx/Texture.h"
 #include "gfx/TESTING.h"
 #include "gfx/Camera.h"
+#include "app/CameraController.h"
 
+using namespace citrus;
 
 //float vertices[] = {
 //	//-.5f, -.5f, .0f,
@@ -100,6 +102,7 @@ int main() {
 
 	// cameras
 	citrus::gfx::Camera* camera = new citrus::gfx::Camera(60.0f, WINDOW_WIDTH / WINDOW_HEIGHT);
+	app::CameraController cameraController{ *camera };
 	camera->Translate({ 0.f,0.f,3.0f });
 
 	// linking vertex attributes
@@ -160,9 +163,9 @@ int main() {
 		// update
 		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(1.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
-
 		// input handling
 		processInput(window);
+		cameraController.Update(window, 1);
 
 		// rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

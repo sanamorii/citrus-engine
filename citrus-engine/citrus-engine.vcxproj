@@ -132,11 +132,12 @@
   <ItemGroup>
     <ClCompile Include="engine\main.cpp" />
     <ClInclude Include="engine\include\app\CameraController.h" />
-    <ClInclude Include="engine\include\app\Input.h" />
+    <ClInclude Include="engine\include\platform\Input.h" />
     <ClInclude Include="engine\include\core\Transform.h" />
     <ClInclude Include="engine\include\gfx\Model.h" />
     <ClInclude Include="engine\include\gfx\Camera.h" />
     <ClInclude Include="engine\include\gfx\Shader.h" />
+    <ClCompile Include="engine\src\app\CameraController.cpp" />
     <ClCompile Include="engine\src\core\Application.cpp" />
     <ClCompile Include="engine\src\core\Transform.cpp" />
     <ClCompile Include="engine\src\gfx\Camera.cpp" />
