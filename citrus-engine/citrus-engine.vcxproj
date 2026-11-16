@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="engine\main.cpp" />
     <ClInclude Include="engine\include\app\CameraController.h" />
+    <ClInclude Include="engine\include\core\Time.h" />
     <ClInclude Include="engine\include\platform\Input.h" />
     <ClInclude Include="engine\include\core\Transform.h" />
     <ClInclude Include="engine\include\gfx\Model.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="engine\src\gfx\Model.cpp" />
     <ClCompile Include="engine\src\gfx\Shader.cpp" />
     <ClCompile Include="engine\src\gfx\Texture.cpp" />
+    <ClCompile Include="engine\src\platform\Window.cpp" />
     <ClCompile Include="vendor\GLAD\src\glad.c" />
     <ClInclude Include="engine\include\gfx\TESTING.h" />
     <ClInclude Include="engine\include\platform\Window.h" />

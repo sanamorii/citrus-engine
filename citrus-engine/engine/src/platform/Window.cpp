@@ -23,19 +23,30 @@ bool citrus::platform::Window::Init() {
 		return false;
 	}
 
-	window = glfwCreateWindow(this->width, this->height, this->title, NULL, NULL);
-	if (window == NULL) {
+	m_window = glfwCreateWindow(this->width, this->height, this->title, NULL, NULL);
+	if (m_window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		return false;
 	}
 
 	// TODO: center window
 
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(m_window);
 	return true;
 }
 
 void citrus::platform::Window::Update() {
 	glfwPollEvents();
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_window);
+}
+
+int citrus::platform::Window::GetWindowWidth() { return width; }
+int citrus::platform::Window::GetWindowHeight() { return height; }
+GLFWwindow* citrus::platform::Window::GetGLFWWindow() { return m_window; }
+
+bool citrus::platform::Window::SetWindowResolution(int opt) {
+	return false; // TODO: ...
+}
+bool citrus::platform::Window::ShouldClose() const {
+	return glfwWindowShouldClose(m_window);
 }

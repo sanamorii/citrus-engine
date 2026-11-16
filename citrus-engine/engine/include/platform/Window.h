@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 struct GLFWwindow;
 
 namespace citrus::platform {
@@ -14,6 +16,10 @@ namespace citrus::platform {
 		int GetWindowHeight();
 
 		bool SetWindowResolution(int opt);
+		bool ShouldClose() const;
+		using ResizeCallback = std::function<void(int width, int height)>;
+		void SetResizeCallback(ResizeCallback cb) { m_onResize = std::move(cb) };
+
 
 		GLFWwindow* GetGLFWWindow();
 
@@ -22,6 +28,8 @@ namespace citrus::platform {
 		int height;
 		const char* title;
 		bool Init();
-		GLFWwindow* window;
-	}
+		GLFWwindow* m_window;
+
+		ResizeCallback m_onResize;
+	};
 }
