@@ -50,3 +50,15 @@ bool citrus::platform::Window::SetWindowResolution(int opt) {
 bool citrus::platform::Window::ShouldClose() const {
 	return glfwWindowShouldClose(m_window);
 }
+
+void citrus::platform::Window::Close() {
+	glfwSetWindowShouldClose(m_window, GLFW_TRUE);
+}
+
+void citrus::platform::Window::SwapBuffers() {
+	glfwSwapBuffers(m_window);
+}
+
+void citrus::platform::Window::PollEvents() {
+	glfwPollEvents();
+}

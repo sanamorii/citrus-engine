@@ -16,9 +16,17 @@ namespace citrus::platform {
 		int GetWindowHeight();
 
 		bool SetWindowResolution(int opt);
+
+		// Frame
 		bool ShouldClose() const;
-		using ResizeCallback = std::function<void(int width, int height)>;
-		void SetResizeCallback(ResizeCallback cb) { m_onResize = std::move(cb) };
+		void Close();
+		void SwapBuffers();
+		void PollEvents();
+
+
+		// Callbacks
+		using ResizeCallback = std::function<void (int width, int height)>;
+		void SetResizeCallback(ResizeCallback cb) { m_onResize = std::move(cb); };
 
 
 		GLFWwindow* GetGLFWWindow();

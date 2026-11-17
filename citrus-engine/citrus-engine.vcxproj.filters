@@ -21,7 +21,7 @@
     <ClCompile Include="engine\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\src\core\Application.cpp">
+    <ClCompile Include="engine\src\app\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="engine\src\gfx\Shader.cpp">
@@ -55,7 +55,7 @@
     <ClInclude Include="engine\include\gfx\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\include\core\Application.h">
+    <ClInclude Include="engine\include\app\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vendor\stb\stb_image.h">
