@@ -34,6 +34,10 @@ void citrus::app::Application::Update() {
 
 void citrus::app::Application::Render() {
 	// Render logic goes here
+	m_window.Clear(0.2f, 0.3f, 0.3f, 1.0f);
+
+	// ...
+
 }
 
 

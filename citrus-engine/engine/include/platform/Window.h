@@ -22,6 +22,7 @@ namespace citrus::platform {
 		void Close();
 		void SwapBuffers();
 		void PollEvents();
+		void Clear(float r, float g, float b, float a);
 
 
 		// Callbacks
