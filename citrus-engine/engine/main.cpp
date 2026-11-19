@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <chrono>
+#include <cstdint>
 
 #include "gfx/Shader.h"
 #include "gfx/Texture.h"
@@ -159,16 +161,29 @@ int main() {
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
+
+	using Clock = std::chrono::steady_clock;
+
+	Clock::time_point last = Clock::now();
+	double delta = 0.0f;
+
+
 	// run loop
 	while (!glfwWindowShouldClose(window)) {
 		
+		// time.tick
+		const auto now = Clock::now();
+		float raw = std::chrono::duration<float>(now - last).count();
+		last = now;
+		delta = raw;
+		printf("%f\n", delta);
 
 		// update
-		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(1.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		model = glm::rotate(model, (float)delta * glm::radians(100.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
 		// input handling
 		processInput(window);
-		cameraController.Update(window, 1);
+		cameraController.Update(window, delta);
 
 		// rendering
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
