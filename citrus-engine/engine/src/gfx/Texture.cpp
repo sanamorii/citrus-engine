@@ -33,5 +33,11 @@ namespace citrus::gfx {
 		return true;
 	}
 
+	void Texture::Bind() {
+		glBindTexture(GL_TEXTURE_2D, m_texture);
+	}
 
+	void Texture::Unbind() {
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }

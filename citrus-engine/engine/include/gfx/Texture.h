@@ -17,6 +17,8 @@ public:
 	void ApplyParameters();
 	bool LoadTexture();
 	unsigned int ID() const { return m_texture; }
+	void Bind();
+	void Unbind();
 private:
 	GLuint m_texture;
 	std::string m_texturePath;

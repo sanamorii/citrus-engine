@@ -132,6 +132,8 @@
   <ItemGroup>
     <ClCompile Include="engine\main.cpp" />
     <ClInclude Include="engine\include\app\CameraController.h" />
+    <ClInclude Include="engine\include\core\Cube.h" />
+    <ClInclude Include="engine\include\core\Object.h" />
     <ClInclude Include="engine\include\core\Time.h" />
     <ClInclude Include="engine\include\platform\Input.h" />
     <ClInclude Include="engine\include\core\Transform.h" />
@@ -140,6 +142,7 @@
     <ClInclude Include="engine\include\gfx\Shader.h" />
     <ClCompile Include="engine\src\app\CameraController.cpp" />
     <ClCompile Include="engine\src\app\Application.cpp" />
+    <ClCompile Include="engine\src\core\Cube.cpp" />
     <ClCompile Include="engine\src\core\Transform.cpp" />
     <ClCompile Include="engine\src\gfx\Camera.cpp" />
     <ClCompile Include="engine\src\gfx\Model.cpp" />

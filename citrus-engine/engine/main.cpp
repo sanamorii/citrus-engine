@@ -12,6 +12,7 @@
 #include "gfx/TESTING.h"
 #include "gfx/Camera.h"
 #include "app/CameraController.h"
+#include "core/Cube.h"
 
 using namespace citrus;
 
@@ -102,65 +103,14 @@ int main() {
 		->Attach("assets/shaders/shader.frag")
 		->Link();
 
+	//objects
+
+	core::Cube* cube = new core::Cube();
+
 	// cameras
 	citrus::gfx::Camera* camera = new citrus::gfx::Camera(60.0f, WINDOW_WIDTH / WINDOW_HEIGHT);
 	app::CameraController cameraController{ *camera };
 	camera->Translate({ 0.f,0.f,3.0f });
-
-	// linking vertex attributes
-	
-	// ogl object buffers.
-	unsigned int VAO;
-	unsigned int VBO;
-	//unsigned int EBO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	//glGenBuffers(1, &EBO);
-	glBindVertexArray(VAO);
-
-	// 0. copy our vertices array in a buffer for OpenGL to use
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(citrus::gfx::test_vertices), citrus::gfx::test_vertices, GL_STATIC_DRAW);
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	// 1. then set the vertex attribute points
-	//	position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	//	normals attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (void*)(3 * sizeof(float)))	;
-	glEnableVertexAttribArray(0);
-	//	colour attribute
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (void*)(8 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	// texture attribute
-	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (void*)(9 * sizeof(float)));
-	glEnableVertexAttribArray(2);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
-
-	citrus::gfx::Texture* tex = new citrus::gfx::Texture("assets/textures/container.jpg");
-	tex->ApplyParameters();
-	tex->LoadTexture();
-
-	/*glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-	trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));*/
-
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-	glm::mat4 view = glm::mat4(1.0f);
-	//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-
-
-	glm::mat4 projection;
-	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
 
 	using Clock = std::chrono::steady_clock;
 
@@ -179,7 +129,11 @@ int main() {
 		printf("%f\n", delta);
 
 		// update
-		model = glm::rotate(model, (float)delta * glm::radians(100.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		//model = glm::rotate(model, (float)delta * glm::radians(100.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		glm::vec3 rot = cube->GetTransform().EulerDegree();
+		//rot += glm::vec3{delta * 100.f, delta * 100.f, delta * 100.f};
+		rot += glm::vec3{delta * 100.f, 0.f,0.f};
+		cube->GetTransform().SetEulerDegrees(rot);
 
 		// input handling
 		processInput(window);
@@ -189,26 +143,17 @@ int main() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// draw
-		//glUseProgram(shaderProgram);
-
-		glBindTexture(GL_TEXTURE_2D, tex->ID());
 
 		shad->Bind();
 		//shad->Set("transform", trans);
-		shad->Set("model", model);
+		cube->Draw(*shad);
 		//shad->Set("view", view);
 		camera->Apply(*shad);
-		shad->Set("projection", projection);
+		//shad->Set("projection", projection);
 		//float timeValue = glfwGetTime();
 		//float greenValue = sin(timeValue) / 2.0f + 0.5f;
 		//glm::vec4 c = { .0f, greenValue, .0f, 1.f, };
 		//shad->Set("colour", c);
-
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(citrus::gfx::test_vertices) / sizeof(float) / 8);
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
