@@ -109,9 +109,18 @@ int main() {
 		->Attach("assets/shaders/shader.frag")
 		->Link();
 
+	citrus::gfx::Shader* lightShad = new citrus::gfx::Shader("light shader");
+	lightShad
+		->Attach("assets/shaders/shader.vert")
+		->Attach("assets/shaders/lightshader.frag")
+		->Link();
+
 	//objects
 
 	core::Cube* cube = new core::Cube();
+	core::Cube* lightCube = new core::Cube();
+	lightCube->GetTransform().SetScale(0.5f);
+	lightCube->GetTransform().SetPosition(glm::vec3(1.f, 1.f, -1.f));
 
 	// cameras
 	citrus::gfx::Camera* camera = new citrus::gfx::Camera(60.0f, WINDOW_WIDTH / WINDOW_HEIGHT);
@@ -152,13 +161,21 @@ int main() {
 		shad->Bind();
 		//shad->Set("transform", trans);
 		cube->Draw(*shad);
+
+		lightShad->Bind();
+		//lightShad->Set("objectColour", glm::vec3(1.0f, 0.5f, 0.31f));
+		//lightShad->Set("lightColour", glm::vec3(1.0f, 1.0f, 1.0f));
+		lightCube->Draw(*lightShad);
+		camera->Apply(*lightShad);
 		//shad->Set("view", view);
+
+		shad->Bind();
 		camera->Apply(*shad);
 		//shad->Set("projection", projection);
 		//float timeValue = glfwGetTime();
 		//float greenValue = sin(timeValue) / 2.0f + 0.5f;
 		//glm::vec4 c = { .0f, greenValue, .0f, 1.f, };
-		//shad->Set("colour", c);
+		shad->Set("colour", glm::vec4(1.f,1.f,1.f,1.f));
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

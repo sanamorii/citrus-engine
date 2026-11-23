@@ -155,6 +155,9 @@
     <ClInclude Include="vendor\stb\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\shaders\lightshader.frag">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </None>
     <None Include="assets\shaders\shader.frag" />
     <None Include="assets\shaders\shader.vert" />
     <ClInclude Include="engine\include\app\Application.h" />

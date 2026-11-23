@@ -53,6 +53,7 @@
     <None Include="assets\shaders\shader.vert" />
     <None Include="assets\shaders\shader.frag" />
     <None Include="engine\include\gfx\Texture.h" />
+    <None Include="assets\shaders\lightshader.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\include\gfx\Shader.h">
