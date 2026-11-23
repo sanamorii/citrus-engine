@@ -16,6 +16,8 @@ namespace citrus::core {
 		void SetRotation(const glm::quat& q);
 		void SetEulerDegrees(const glm::vec3& degrees);
 
+		void Rotate(float radians, const glm::vec3& axis);
+
 		const glm::vec3& Position() const { return m_position; }
 		const glm::vec3& Scale() const { return m_scale; }
 		const glm::quat& Rotation() const { return m_rotation; }

@@ -10,4 +10,7 @@ namespace citrus::core {
 	void Transform::SetScale(float uniform) { Transform::SetScale(glm::vec3(uniform)); }
 	void Transform::SetRotation(const glm::quat& q) { m_rotation = glm::normalize(q); }
 	void Transform::SetEulerDegrees(const glm::vec3& degrees) { Transform::SetRotation(glm::quat(glm::radians(degrees))); }
+	void Transform::Rotate(float radians, const glm::vec3& axis) {
+		m_rotation = glm::normalize(glm::angleAxis(radians, glm::normalize(axis)) * m_rotation);
+	}
 }

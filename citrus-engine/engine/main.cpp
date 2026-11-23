@@ -1,9 +1,13 @@
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <chrono>
 #include <cstdint>
 
@@ -13,6 +17,8 @@
 #include "gfx/Camera.h"
 #include "app/CameraController.h"
 #include "core/Cube.h"
+
+
 
 using namespace citrus;
 
@@ -130,10 +136,9 @@ int main() {
 
 		// update
 		//model = glm::rotate(model, (float)delta * glm::radians(100.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-		glm::vec3 rot = cube->GetTransform().EulerDegree();
-		//rot += glm::vec3{delta * 100.f, delta * 100.f, delta * 100.f};
-		rot += glm::vec3{delta * 100.f, 0.f,0.f};
-		cube->GetTransform().SetEulerDegrees(rot);
+		cube->GetTransform().Rotate(delta * glm::radians(100.f), glm::vec3(0.5f, 1.0f, 0.0f));
+
+		std::cout << glm::to_string(cube->GetTransform().Rotation()) << std::endl;
 
 		// input handling
 		processInput(window);
