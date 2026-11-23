@@ -141,13 +141,13 @@ int main() {
 		float raw = std::chrono::duration<float>(now - last).count();
 		last = now;
 		delta = raw;
-		printf("%f\n", delta);
+		//printf("%f\n", delta);
 
 		// update
 		//model = glm::rotate(model, (float)delta * glm::radians(100.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 		cube->GetTransform().Rotate(delta * glm::radians(100.f), glm::vec3(0.5f, 1.0f, 0.0f));
 
-		std::cout << glm::to_string(cube->GetTransform().Rotation()) << std::endl;
+		//std::cout << glm::to_string(cube->GetTransform().Rotation()) << std::endl;
 
 		// input handling
 		processInput(window);
